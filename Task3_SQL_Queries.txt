@@ -1,0 +1,34 @@
+-- Create Table
+CREATE TABLE sales_data (
+    month VARCHAR(10),
+    sales INT,
+    target INT,
+    profit INT
+);
+
+-- Insert Data
+INSERT INTO sales_data VALUES
+('Jan',10000,9000,2000),
+('Feb',12000,10000,2500),
+('Mar',8000,9000,1500),
+('Apr',15000,12000,4000),
+('May',17000,15000,5000);
+
+-- CASE Query
+SELECT month, sales, target,
+CASE 
+    WHEN sales > target THEN 'Achieved'
+    ELSE 'Not Achieved'
+END AS status
+FROM sales_data;
+
+-- Subquery
+SELECT month, sales
+FROM sales_data
+WHERE sales > (SELECT AVG(sales) FROM sales_data);
+
+-- HAVING Query
+SELECT month, SUM(sales) AS total_sales
+FROM sales_data
+GROUP BY month
+HAVING SUM(sales) > 10000;
